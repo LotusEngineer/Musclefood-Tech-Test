@@ -37,6 +37,16 @@ describe("Vending Machine", () => {
       });
     });
 
+    describe("When multiple coins are inserted", () => {
+      it("should add each to the total and display this", () => {
+        subject.insertCoin(quarter);
+        subject.insertCoin(dime);
+        subject.insertCoin(quarter);
+        subject.insertCoin(nickel);
+        expect(subject.viewDisplay()).toBe("0.65");
+      });
+    });
+
     describe("When invalid coins are inserted (pennies)", () => {
       it("should return them to the coin return", () => {
         subject.insertCoin(penny);
