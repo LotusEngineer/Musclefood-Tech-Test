@@ -25,23 +25,54 @@ export class Coin {
   }
 }
 
+class Product {
+  name: string;
+  value: number;
+
+  constructor(name: string, value: number) {
+    this.name = name;
+    this.value = value;
+  }
+}
+
 class VendingMachine {
   currentAmount: number;
+  currentDisplay: string;
   coinReturn: Coin[];
+  inventory: Map<string, Product>;
 
   constructor() {
     this.currentAmount = 0;
     this.coinReturn = [];
+    this.currentDisplay = "INSERT_COIN";
+    this.inventory = new Map();
+    this.inventory.set("candy", new Product("candy", 0.65));
   }
   nickel: Coin = new Coin(5, 21.21, 1.95);
   dime: Coin = new Coin(2.268, 17.91, 1.35);
   quarter: Coin = new Coin(5.67, 24.26, 1.75);
 
+  selectProduct(selection: string) {
+    if (this.inventory.get(selection)) {
+      this.setCurrentDisplay("THANK_YOU");
+    }
+  }
+
   viewDisplay() {
-    if (this.getCurrentAmount() > 0) {
+    if (this.getCurrentDisplay() === "THANK_YOU") {
+      return "THANK YOU";
+    } else if (this.getCurrentDisplay() === "INSERT_COIN") {
+      return "INSERT COIN";
+    } else if (this.getCurrentDisplay() === "CURRENT_AMOUNT") {
       return this.getCurrentAmount().toFixed(2);
     }
-    return "INSERT COIN";
+  }
+  setCurrentDisplay(newDisplay: string) {
+    this.currentDisplay = newDisplay;
+  }
+
+  getCurrentDisplay(): string {
+    return this.currentDisplay;
   }
 
   insertCoin(coin: Coin) {
@@ -51,6 +82,7 @@ class VendingMachine {
       this.addToCoinReturn(coin);
     } else {
       this.setCurrentAmount(this.getCurrentAmount() + value);
+      this.setCurrentDisplay("CURRENT_AMOUNT");
     }
   }
 
