@@ -27,9 +27,11 @@ export class Coin {
 
 class VendingMachine {
   currentAmount: number;
+  coinReturn: Coin[];
 
   constructor() {
     this.currentAmount = 0;
+    this.coinReturn = [];
   }
   nickel: Coin = new Coin(5, 21.21, 1.95);
   dime: Coin = new Coin(2.268, 17.91, 1.35);
@@ -45,7 +47,11 @@ class VendingMachine {
   insertCoin(coin: Coin) {
     const value: number = this.computeCoinValue(coin);
 
-    this.setCurrentAmount(this.getCurrentAmount() + value);
+    if (value < 0.05) {
+      this.addToCoinReturn(coin);
+    } else {
+      this.setCurrentAmount(this.getCurrentAmount() + value);
+    }
   }
 
   getCurrentAmount(): number {
@@ -67,6 +73,14 @@ class VendingMachine {
       default:
         return 0;
     }
+  }
+
+  addToCoinReturn(coin: Coin) {
+    this.coinReturn.push(coin);
+  }
+
+  getCoinReturn(): Coin[] {
+    return this.coinReturn;
   }
 }
 
