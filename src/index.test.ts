@@ -98,5 +98,11 @@ describe("Vending Machine", () => {
         expect(subject.viewDisplay()).toBe("PRICE 1.00");
       });
     });
+
+    it("should display INSERT COIN on second view of the display", () => {
+      subject.selectProduct("cola");
+      subject.viewDisplay();
+      expect(subject.viewDisplay()).toBe("INSERT COIN");
+    });
   });
 });
