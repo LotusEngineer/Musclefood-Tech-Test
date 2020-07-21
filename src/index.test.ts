@@ -112,39 +112,51 @@ describe("Vending Machine", () => {
       });
       it("should display INSERT COIN on second view of the display", () => {
         subject.insertCoin(quarter);
+        subject.insertCoin(quarter);
+        subject.insertCoin(quarter);
+        subject.insertCoin(quarter);
+        subject.selectProduct("chips");
+        subject.viewDisplay();
+        expect(subject.viewDisplay()).toBe("INSERT COIN");
+      });
+    });
+  });
+
+  describe("When a customer selects a product without the any amount inserted", () => {
+    it("should display price of the item", () => {
+      subject.selectProduct("cola");
+      expect(subject.viewDisplay()).toBe("PRICE 1.00");
+    });
+
+    it("should display INSERT COIN on second view of the display", () => {
+      subject.selectProduct("cola");
+      subject.viewDisplay();
+      expect(subject.viewDisplay()).toBe("INSERT COIN");
+    });
+  });
+  describe("When a customer selects a product with coins inserted but too low of an amount", () => {
+    it("should display price of the item on first view of the display", () => {
       subject.insertCoin(quarter);
-      subject.insertCoin(nickel);
-        subject.insertCoin(dime);
-      subject.selectProduct("chips");
-        subject.viewDisplay();
-        expect(subject.viewDisplay()).toBe("INSERT COIN");
-      });
+      subject.selectProduct("cola");
+      expect(subject.viewDisplay()).toBe("PRICE 1.00");
     });
+    it("should display current amount on second view of the display", () => {
+      subject.insertCoin(quarter);
+      subject.selectProduct("cola");
+      subject.viewDisplay();
+      expect(subject.viewDisplay()).toBe("0.25");
     });
+  });
 
-    describe("When a customer selects a product without the any amount inserted", () => {
-      it("should display price of the item", () => {
-        subject.selectProduct("cola");
-        expect(subject.viewDisplay()).toBe("PRICE 1.00");
-      });
-
-      it("should display INSERT COIN on second view of the display", () => {
-        subject.selectProduct("cola");
-        subject.viewDisplay();
-        expect(subject.viewDisplay()).toBe("INSERT COIN");
-      });
-    });
-    describe("When a customer selects a product with coins inserted but too low of an amount", () => {
-      it("should display price of the item on first view of the display", () => {
+  describe("Make Change", () => {
+    describe("When a customer attempts to purchase an item cheaper than the current amount they have inserted", () => {
+      it("should return remaining coins to the coin return", () => {
         subject.insertCoin(quarter);
-        subject.selectProduct("cola");
-        expect(subject.viewDisplay()).toBe("PRICE 1.00");
-      });
-      it("should display current amount on second view of the display", () => {
         subject.insertCoin(quarter);
-        subject.selectProduct("cola");
-        subject.viewDisplay();
-        expect(subject.viewDisplay()).toBe("0.25");
+        subject.insertCoin(quarter);
+        subject.insertCoin(quarter);
+        subject.selectProduct("chips");
+        expect(subject.getCoinReturn()).toEqual([quarter, quarter]);
       });
     });
   });
