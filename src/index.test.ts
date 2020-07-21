@@ -58,4 +58,17 @@ describe("Vending Machine", () => {
       });
     });
   });
+
+  describe("Select Product", () => {
+    describe("When a customer selects candy with a balance of 0.65", () => {
+      it("should dispense candy and display THANK YOU", () => {
+        subject.insertCoin(quarter);
+        subject.insertCoin(quarter);
+        subject.insertCoin(dime);
+        subject.insertCoin(nickel);
+        subject.selectProduct("candy");
+        expect(subject.viewDisplay()).toBe("THANK YOU");
+      });
+    });
+  });
 });
