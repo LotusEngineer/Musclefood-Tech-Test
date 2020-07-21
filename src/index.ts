@@ -67,8 +67,6 @@ class VendingMachine {
         return "INSERT COIN";
       case "CURRENT_AMOUNT":
         return this.getCurrentAmount().toFixed(2);
-      default:
-        break;
     }
   }
   setCurrentDisplay(newDisplay: string) {
