@@ -33,6 +33,7 @@ class VendingMachine {
   }
   nickel: Coin = new Coin(5, 21.21, 1.95);
   dime: Coin = new Coin(2.268, 17.91, 1.35);
+  quarter: Coin = new Coin(5.67, 24.26, 1.75);
 
   viewDisplay() {
     if (this.getCurrentAmount() > 0) {
@@ -60,6 +61,8 @@ class VendingMachine {
       return 0.05;
     } else if (coin.equals(this.dime)) {
       return 0.1;
+    } else if (coin.equals(this.quarter)) {
+      return 0.25;
     } else {
       return 0;
     }

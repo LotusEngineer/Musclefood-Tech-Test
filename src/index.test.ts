@@ -34,7 +34,7 @@ describe("Vending Machine", () => {
         //Weight (g), diameter(mm) & thickness(mm), referenced from US mint
         const quarter: Coin = new Coin(5.67, 24.26, 1.75);
         subject.insertCoin(quarter);
-        expect(subject.getDisplay()).toBe("0.25");
+        expect(subject.viewDisplay()).toBe("0.25");
       });
     });
   });
