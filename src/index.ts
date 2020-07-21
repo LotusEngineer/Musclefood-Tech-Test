@@ -38,6 +38,7 @@ class Product {
 class VendingMachine {
   currentAmount: number;
   currentDisplay: string;
+  selectedProductValue: number;
   coinReturn: Coin[];
   inventory: Map<string, Product>;
 
@@ -45,6 +46,7 @@ class VendingMachine {
     this.currentAmount = 0;
     this.coinReturn = [];
     this.currentDisplay = "INSERT_COIN";
+    this.selectedProductValue = 0;
     this.inventory = new Map();
     this.inventory.set("candy", new Product("candy", 0.65));
     this.inventory.set("cola", new Product("cola", 1.0));
@@ -54,9 +56,22 @@ class VendingMachine {
   quarter: Coin = new Coin(5.67, 24.26, 1.75);
 
   selectProduct(selection: string) {
-    if (this.inventory.get(selection)) {
+    const product = this.inventory.get(selection);
+    const amount = this.getCurrentAmount();
+    if (product && product.value > amount) {
+      this.setSelectedProductValue(product);
+      this.setCurrentDisplay("PRICE_CHECK");
+    } else if (product) {
       this.setCurrentDisplay("THANK_YOU");
     }
+  }
+
+  getSelectedProductValue(): number {
+    return this.selectedProductValue;
+  }
+
+  setSelectedProductValue(selectedProduct: Product) {
+    this.selectedProductValue = selectedProduct.value;
   }
 
   viewDisplay() {
@@ -68,6 +83,8 @@ class VendingMachine {
         return "INSERT COIN";
       case "CURRENT_AMOUNT":
         return this.getCurrentAmount().toFixed(2);
+      case "PRICE_CHECK":
+        return `PRICE ${this.getSelectedProductValue().toFixed(2)}`;
     }
   }
   setCurrentDisplay(newDisplay: string) {

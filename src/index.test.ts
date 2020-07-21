@@ -92,7 +92,7 @@ describe("Vending Machine", () => {
       });
     });
 
-    describe("When a customer selects a product without the correct amount inserted", () => {
+    describe("When a customer selects a product without the any amount inserted", () => {
       it("should display price of the item", () => {
         subject.selectProduct("cola");
         expect(subject.viewDisplay()).toBe("PRICE 1.00");
