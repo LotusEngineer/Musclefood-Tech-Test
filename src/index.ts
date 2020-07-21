@@ -84,6 +84,7 @@ class VendingMachine {
       case "CURRENT_AMOUNT":
         return this.getCurrentAmount().toFixed(2);
       case "PRICE_CHECK":
+        this.setCurrentDisplay("INSERT_COIN");
         return `PRICE ${this.getSelectedProductValue().toFixed(2)}`;
     }
   }
