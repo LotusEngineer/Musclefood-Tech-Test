@@ -25,7 +25,7 @@ describe("Vending Machine", () => {
         //Weight (g), diameter(mm) & thickness(mm), referenced from US mint
         const dime: Coin = new Coin(2.268, 17.91, 1.35);
         subject.insertCoin(dime);
-        expect(subject.getDisplay()).toBe("0.10");
+        expect(subject.viewDisplay()).toBe("0.10");
       });
     });
   });

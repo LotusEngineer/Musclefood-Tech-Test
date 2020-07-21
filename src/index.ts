@@ -32,6 +32,7 @@ class VendingMachine {
     this.currentAmount = 0;
   }
   nickel: Coin = new Coin(5, 21.21, 1.95);
+  dime: Coin = new Coin(2.268, 17.91, 1.35);
 
   viewDisplay() {
     if (this.getCurrentAmount() > 0) {
@@ -57,6 +58,8 @@ class VendingMachine {
   computeCoinValue(coin: Coin): number {
     if (coin.equals(this.nickel)) {
       return 0.05;
+    } else if (coin.equals(this.dime)) {
+      return 0.1;
     } else {
       return 0;
     }
