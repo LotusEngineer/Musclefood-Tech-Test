@@ -110,6 +110,16 @@ describe("Vending Machine", () => {
         subject.selectProduct("chips");
         expect(subject.viewDisplay()).toBe("THANK YOU");
       });
+      it("should display INSERT COIN on second view of the display", () => {
+        subject.insertCoin(quarter);
+      subject.insertCoin(quarter);
+      subject.insertCoin(nickel);
+        subject.insertCoin(dime);
+      subject.selectProduct("chips");
+        subject.viewDisplay();
+        expect(subject.viewDisplay()).toBe("INSERT COIN");
+      });
+    });
     });
 
     describe("When a customer selects a product without the any amount inserted", () => {
