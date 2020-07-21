@@ -80,5 +80,16 @@ describe("Vending Machine", () => {
         expect(subject.viewDisplay()).toBe("INSERT COIN");
       });
     });
+
+    describe("When a customer selects cola with a balance of 1.00", () => {
+      it("should dispense cola and display THANK YOU", () => {
+        subject.insertCoin(quarter);
+        subject.insertCoin(quarter);
+        subject.insertCoin(quarter);
+        subject.insertCoin(quarter);
+        subject.selectProduct("cola");
+        expect(subject.viewDisplay()).toBe("THANK YOU");
+      });
+    });
   });
 });
