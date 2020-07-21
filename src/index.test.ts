@@ -105,4 +105,19 @@ describe("Vending Machine", () => {
       expect(subject.viewDisplay()).toBe("INSERT COIN");
     });
   });
+
+  describe("When a customer selects a product with coins inserted but too low of an amount", () => {
+    it("should display price of the item on first view of the display", () => {
+      subject.insertCoin(quarter);
+      subject.selectProduct("cola");
+      expect(subject.viewDisplay()).toBe("PRICE 1.00");
+    });
+
+    it("should display current amount on second view of the display", () => {
+      subject.insertCoin(quarter);
+      subject.selectProduct("cola");
+      subject.viewDisplay();
+      expect(subject.viewDisplay()).toBe("0.25");
+    });
+  });
 });
