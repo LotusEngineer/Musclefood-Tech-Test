@@ -42,6 +42,10 @@ describe("Vending Machine", () => {
         subject.insertCoin(penny);
         expect(subject.getCoinReturn()).toEqual([penny]);
       });
+
+      it("should display INSERT COIN", () => {
+        expect(subject.viewDisplay()).toBe("INSERT COIN");
+      });
     });
   });
 });
