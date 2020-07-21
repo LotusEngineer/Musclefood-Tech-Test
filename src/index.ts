@@ -57,14 +57,15 @@ class VendingMachine {
   }
 
   computeCoinValue(coin: Coin): number {
-    if (coin.equals(this.nickel)) {
-      return 0.05;
-    } else if (coin.equals(this.dime)) {
-      return 0.1;
-    } else if (coin.equals(this.quarter)) {
-      return 0.25;
-    } else {
-      return 0;
+    switch (true) {
+      case coin.equals(this.nickel):
+        return 0.05;
+      case coin.equals(this.dime):
+        return 0.1;
+      case coin.equals(this.quarter):
+        return 0.25;
+      default:
+        return 0;
     }
   }
 }
