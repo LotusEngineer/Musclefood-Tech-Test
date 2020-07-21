@@ -69,6 +69,16 @@ describe("Vending Machine", () => {
         subject.selectProduct("candy");
         expect(subject.viewDisplay()).toBe("THANK YOU");
       });
+
+      it("should display INSERT COIN when viewing the display again after seeing THANK YOU", () => {
+        subject.insertCoin(quarter);
+        subject.insertCoin(quarter);
+        subject.insertCoin(dime);
+        subject.insertCoin(nickel);
+        subject.selectProduct("candy");
+        subject.viewDisplay();
+        expect(subject.viewDisplay()).toBe("INSERT COIN");
+      });
     });
   });
 });
