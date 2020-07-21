@@ -1,3 +1,4 @@
+import VendingMachine from "./index";
 describe("Vending Machine", () => {
   describe("Accept Coins", () => {
     describe("When no coin has been inserted", () => {
