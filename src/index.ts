@@ -59,13 +59,16 @@ class VendingMachine {
   }
 
   viewDisplay() {
-    if (this.getCurrentDisplay() === "THANK_YOU") {
-      this.setCurrentDisplay("INSERT_COIN");
-      return "THANK YOU";
-    } else if (this.getCurrentDisplay() === "INSERT_COIN") {
-      return "INSERT COIN";
-    } else if (this.getCurrentDisplay() === "CURRENT_AMOUNT") {
-      return this.getCurrentAmount().toFixed(2);
+    switch (this.getCurrentDisplay()) {
+      case "THANK_YOU":
+        this.setCurrentDisplay("INSERT_COIN");
+        return "THANK YOU";
+      case "INSERT_COIN":
+        return "INSERT COIN";
+      case "CURRENT_AMOUNT":
+        return this.getCurrentAmount().toFixed(2);
+      default:
+        break;
     }
   }
   setCurrentDisplay(newDisplay: string) {
