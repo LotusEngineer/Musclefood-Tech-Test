@@ -60,6 +60,7 @@ class VendingMachine {
 
   viewDisplay() {
     if (this.getCurrentDisplay() === "THANK_YOU") {
+      this.setCurrentDisplay("INSERT_COIN");
       return "THANK YOU";
     } else if (this.getCurrentDisplay() === "INSERT_COIN") {
       return "INSERT COIN";
