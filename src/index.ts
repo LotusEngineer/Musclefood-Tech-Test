@@ -47,6 +47,7 @@ class VendingMachine {
     this.currentDisplay = "INSERT_COIN";
     this.inventory = new Map();
     this.inventory.set("candy", new Product("candy", 0.65));
+    this.inventory.set("cola", new Product("cola", 1.0));
   }
   nickel: Coin = new Coin(5, 21.21, 1.95);
   dime: Coin = new Coin(2.268, 17.91, 1.35);
