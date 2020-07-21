@@ -5,6 +5,7 @@ describe("Vending Machine", () => {
   const nickel: Coin = new Coin(5, 21.21, 1.95);
   const dime: Coin = new Coin(2.268, 17.91, 1.35);
   const quarter: Coin = new Coin(5.67, 24.26, 1.75);
+  const penny: Coin = new Coin(2.5, 19.05, 1.52);
   beforeEach(() => {
     subject = new VendingMachine();
   });
@@ -33,6 +34,13 @@ describe("Vending Machine", () => {
       it("should increase the current amount by 0.25 and display the current value", () => {
         subject.insertCoin(quarter);
         expect(subject.viewDisplay()).toBe("0.25");
+      });
+    });
+
+    describe("When invalid coins are inserted (pennies)", () => {
+      it("should return them to the coin return", () => {
+        subject.insertCoin(penny);
+        expect(subject.getCoinReturn()).toEqual([penny]);
       });
     });
   });
