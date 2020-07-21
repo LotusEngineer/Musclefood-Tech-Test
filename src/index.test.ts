@@ -91,5 +91,12 @@ describe("Vending Machine", () => {
         expect(subject.viewDisplay()).toBe("THANK YOU");
       });
     });
+
+    describe("When a customer selects a product without the correct amount inserted", () => {
+      it("should display price of the item", () => {
+        subject.selectProduct("cola");
+        expect(subject.viewDisplay()).toBe("PRICE 1.00");
+      });
+    });
   });
 });
