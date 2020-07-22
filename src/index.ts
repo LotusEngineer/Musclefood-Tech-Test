@@ -25,7 +25,7 @@ export class Coin {
   }
 }
 
-class Product {
+export class Product {
   name: string;
   value: number;
   quantity: number;
@@ -48,6 +48,7 @@ class VendingMachine {
   selectedProductValue: number;
   coinReturn: Coin[];
   inventory: Map<string, Product>;
+  dispenser: Product[];
 
   constructor() {
     this.currentAmount = 0;
@@ -59,6 +60,7 @@ class VendingMachine {
     this.inventory.set("candy", new Product("candy", 0.65, 5));
     this.inventory.set("cola", new Product("cola", 1.0, 3));
     this.inventory.set("chips", new Product("chips", 0.5, 1));
+    this.dispenser = [];
   }
   nickel: Coin = new Coin(5, 21.21, 1.95);
   dime: Coin = new Coin(2.268, 17.91, 1.35);
@@ -80,6 +82,7 @@ class VendingMachine {
         this.addChangeToCoinReturn(change);
         this.setCurrentAmount(0);
         this.clearCurrentCoins();
+        this.addToDispenser(product);
         this.setCurrentDisplay("THANK_YOU");
       } else {
         this.setCurrentDisplay("EXACT_CHANGE");
@@ -88,6 +91,7 @@ class VendingMachine {
       product.setQuantity(product.quantity - 1);
       this.setCurrentAmount(0);
       this.clearCurrentCoins();
+      this.addToDispenser(product);
       this.setCurrentDisplay("THANK_YOU");
     }
   }
@@ -217,6 +221,14 @@ class VendingMachine {
 
   clearCurrentCoins() {
     this.currentCoins = [];
+  }
+
+  addToDispenser(product: Product) {
+    this.dispenser.push(product);
+  }
+
+  getDispenser(): Product[] {
+    return this.dispenser;
   }
 }
 
