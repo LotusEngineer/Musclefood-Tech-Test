@@ -97,6 +97,8 @@ class VendingMachine {
   }
 
   viewDisplay() {
+    const nextDisplay =
+      this.getCurrentAmount() > 0 ? "CURRENT_AMOUNT" : "INSERT_COIN";
     switch (this.getCurrentDisplay()) {
       case "THANK_YOU":
         this.setCurrentDisplay("INSERT_COIN");
@@ -104,13 +106,11 @@ class VendingMachine {
       case "INSERT_COIN":
         return "INSERT COIN";
       case "SOLD_OUT":
-        this.setCurrentDisplay("INSERT_COIN");
+        this.setCurrentDisplay(nextDisplay);
         return "SOLD OUT";
       case "CURRENT_AMOUNT":
         return this.getCurrentAmount().toFixed(2);
       case "PRICE_CHECK":
-        const nextDisplay =
-          this.getCurrentAmount() > 0 ? "CURRENT_AMOUNT" : "INSERT_COIN";
         this.setCurrentDisplay(nextDisplay);
         return `PRICE ${this.getSelectedProductValue().toFixed(2)}`;
     }
