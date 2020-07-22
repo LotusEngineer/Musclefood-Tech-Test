@@ -104,6 +104,7 @@ class VendingMachine {
       case "INSERT_COIN":
         return "INSERT COIN";
       case "SOLD_OUT":
+        this.setCurrentDisplay("INSERT_COIN");
         return "SOLD OUT";
       case "CURRENT_AMOUNT":
         return this.getCurrentAmount().toFixed(2);
