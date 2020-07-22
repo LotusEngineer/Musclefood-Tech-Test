@@ -193,4 +193,19 @@ describe("Vending Machine", () => {
       });
     });
   });
+
+  describe("Sold Out", () => {
+    describe("When a customer selects an out of stock item", () => {
+      it("should update the display to show sold out", () => {
+        subject.insertCoin(quarter);
+        subject.insertCoin(quarter);
+        subject.selectProduct("chips");
+
+        subject.insertCoin(quarter);
+        subject.insertCoin(quarter);
+        subject.selectProduct("chips");
+        expect(subject.viewDisplay()).toBe("SOLD OUT");
+      });
+    });
+  });
 });
