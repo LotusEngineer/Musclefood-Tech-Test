@@ -206,6 +206,28 @@ describe("Vending Machine", () => {
         subject.selectProduct("chips");
         expect(subject.viewDisplay()).toBe("SOLD OUT");
       });
+
+      it("should display INSERT COIN on second view if no funds inserted", () => {
+        subject.insertCoin(quarter);
+        subject.insertCoin(quarter);
+        subject.selectProduct("chips");
+
+        subject.selectProduct("chips");
+        subject.viewDisplay();
+        expect(subject.viewDisplay()).toBe("INSERT COIN");
+      });
+
+      it("should display INSERT COIN on second view if no funds inserted", () => {
+        subject.insertCoin(quarter);
+        subject.insertCoin(quarter);
+        subject.selectProduct("chips");
+
+        subject.insertCoin(quarter);
+        subject.insertCoin(quarter);
+        subject.selectProduct("chips");
+        subject.viewDisplay();
+        expect(subject.viewDisplay()).toBe("0.50");
+      });
     });
   });
 });
