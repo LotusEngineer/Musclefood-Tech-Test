@@ -68,15 +68,15 @@ class VendingMachine {
 
   selectProduct(selection: string) {
     const product = this.inventory.get(selection);
-    const amount = this.getCurrentAmount();
+    const amount: number = this.getCurrentAmount();
     if (product && product.quantity === 0) {
       this.setCurrentDisplay("SOLD_OUT");
     } else if (product && product.value > amount) {
       this.setSelectedProductValue(product);
       this.setCurrentDisplay("PRICE_CHECK");
     } else if (product && this.getCurrentAmount() > product.value) {
-      const changeAmount = this.getCurrentAmount() - product.value;
-      const change = this.calculateChange(changeAmount);
+      const changeAmount: number = this.getCurrentAmount() - product.value;
+      const change: Coin[] = this.calculateChange(changeAmount);
       if (change.length > 0) {
         product.setQuantity(product.quantity - 1);
         this.addChangeToCoinReturn(change);
