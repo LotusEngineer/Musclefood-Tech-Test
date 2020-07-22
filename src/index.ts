@@ -75,11 +75,15 @@ class VendingMachine {
     } else if (product && this.getCurrentAmount() > product.value) {
       const changeAmount = this.getCurrentAmount() - product.value;
       const change = this.calculateChange(changeAmount);
-      product.setQuantity(product.quantity - 1);
-      this.addChangeToCoinReturn(change);
-      this.setCurrentAmount(0);
-      this.clearCurrentCoins();
-      this.setCurrentDisplay("THANK_YOU");
+      if (change.length > 0) {
+        product.setQuantity(product.quantity - 1);
+        this.addChangeToCoinReturn(change);
+        this.setCurrentAmount(0);
+        this.clearCurrentCoins();
+        this.setCurrentDisplay("THANK_YOU");
+      } else {
+        this.setCurrentDisplay("EXACT_CHANGE");
+      }
     } else if (product) {
       product.setQuantity(product.quantity - 1);
       this.setCurrentAmount(0);
@@ -110,6 +114,8 @@ class VendingMachine {
         return "SOLD OUT";
       case "CURRENT_AMOUNT":
         return this.getCurrentAmount().toFixed(2);
+      case "EXACT_CHANGE":
+        return "EXACT CHANGE ONLY";
       case "PRICE_CHECK":
         this.setCurrentDisplay(nextDisplay);
         return `PRICE ${this.getSelectedProductValue().toFixed(2)}`;
@@ -181,7 +187,7 @@ class VendingMachine {
         amount = amount - this.computeCoinValue(this.nickel);
         continue;
       } else {
-        break;
+        return change;
       }
     }
     return change;
