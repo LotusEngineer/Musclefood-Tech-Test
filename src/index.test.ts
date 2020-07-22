@@ -230,4 +230,16 @@ describe("Vending Machine", () => {
       });
     });
   });
+
+  describe("Exact Change only", () => {
+    describe("When the machine is not able to make change with the coins in the machine", () => {
+      it("should display EXACT CHANGE ONLY if change can not be made from inserted coins", () => {
+        subject.insertCoin(quarter);
+        subject.insertCoin(quarter);
+        subject.insertCoin(quarter);
+        subject.selectProduct("candy");
+        expect(subject.viewDisplay()).toBe("EXACT CHANGE ONLY");
+      });
+    });
+  });
 });
