@@ -2,6 +2,12 @@
 
 Vending machine kata tech test performed for Musclefood, written in typescript and tested using the jest runner (Mocha/Chai).
 
+### Given more time/what i would have like to get around to
+- My implementation of the final case isn't spot on, i had more complex idea i wouldn't taken more thought and time for execution.
+- Further to that, would have like to implement a coinInventory for spent coins to help facilitate making change.
+- Had plans to implement some constructor arguments and maybe a factory to set initial inventory/coinStore
+- Would write some test helpers for repeated actions like inserting multiple of the same coin (some kind of loop) and test set ups
+
 See kata description below.
 
 Vending Machine Kata
