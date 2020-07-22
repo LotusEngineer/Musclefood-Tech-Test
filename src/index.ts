@@ -97,7 +97,7 @@ class VendingMachine {
   }
 
   viewDisplay() {
-    const nextDisplay =
+    const nextDisplay: string =
       this.getCurrentAmount() > 0 ? "CURRENT_AMOUNT" : "INSERT_COIN";
     switch (this.getCurrentDisplay()) {
       case "THANK_YOU":
