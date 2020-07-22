@@ -149,7 +149,7 @@ describe("Vending Machine", () => {
   });
 
   describe("Make Change", () => {
-    describe("When a customer attempts to purchase an item cheaper than the current amount they have inserted", () => {
+    describe("When a customer attempts to purchase an item cheaper than the current amount they have inserted and change is available", () => {
       it("should return remaining coins to the coin return", () => {
         subject.insertCoin(quarter);
         subject.insertCoin(quarter);
@@ -157,6 +157,22 @@ describe("Vending Machine", () => {
         subject.insertCoin(quarter);
         subject.selectProduct("chips");
         expect(subject.getCoinReturn()).toEqual([quarter, quarter]);
+      });
+
+      it("should return change to the coin return", () => {
+        subject.insertCoin(dime);
+        subject.insertCoin(dime);
+        subject.insertCoin(dime);
+        subject.insertCoin(dime);
+        subject.insertCoin(dime);
+        subject.insertCoin(dime);
+        subject.insertCoin(dime);
+        subject.insertCoin(dime);
+        subject.insertCoin(dime);
+        subject.insertCoin(dime);
+        subject.insertCoin(dime);
+        subject.selectProduct("chips");
+        expect(subject.getCoinReturn()).toEqual([dime, dime, dime, dime, dime]);
       });
     });
   });
