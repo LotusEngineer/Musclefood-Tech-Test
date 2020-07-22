@@ -185,6 +185,12 @@ describe("Vending Machine", () => {
         subject.returnCoins();
         expect(subject.getCoinReturn()).toEqual([quarter, dime]);
       });
+
+      it("should display INSERT COIN", () => {
+        subject.insertCoin(quarter);
+        subject.returnCoins();
+        expect(subject.viewDisplay()).toBe("INSERT COIN");
+      });
     });
   });
 });
