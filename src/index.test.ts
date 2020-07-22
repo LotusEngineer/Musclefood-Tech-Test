@@ -182,7 +182,7 @@ describe("Vending Machine", () => {
       it("should return any coins in the user inserted into the machine", () => {
         subject.insertCoin(quarter);
         subject.insertCoin(dime);
-        subject.returnsCoins();
+        subject.returnCoins();
         expect(subject.getCoinReturn()).toEqual([quarter, dime]);
       });
     });

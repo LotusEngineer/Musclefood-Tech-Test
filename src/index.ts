@@ -184,6 +184,11 @@ class VendingMachine {
     return this.coinReturn;
   }
 
+  returnCoins() {
+    this.addChangeToCoinReturn(this.currentCoins);
+    this.clearCurrentCoins();
+  }
+
   addToCurrentCoins(coin: Coin) {
     this.currentCoins.push(coin);
   }
