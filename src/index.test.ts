@@ -1,6 +1,6 @@
 import VendingMachine, { Coin } from "./index";
 describe("Vending Machine", () => {
-  let subject;
+  let subject: VendingMachine;
   //Weight (g), diameter(mm) & thickness(mm), referenced from US mint
   const nickel: Coin = new Coin(5, 21.21, 1.95);
   const dime: Coin = new Coin(2.268, 17.91, 1.35);

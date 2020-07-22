@@ -37,6 +37,7 @@ class Product {
 
 class VendingMachine {
   currentAmount: number;
+  currentCoins: Coin[];
   currentDisplay: string;
   selectedProductValue: number;
   coinReturn: Coin[];
@@ -44,6 +45,7 @@ class VendingMachine {
 
   constructor() {
     this.currentAmount = 0;
+    this.currentCoins = [];
     this.coinReturn = [];
     this.currentDisplay = "INSERT_COIN";
     this.selectedProductValue = 0;
@@ -62,6 +64,13 @@ class VendingMachine {
     if (product && product.value > amount) {
       this.setSelectedProductValue(product);
       this.setCurrentDisplay("PRICE_CHECK");
+    } else if (product && this.getCurrentAmount() > product.value) {
+      const changeAmount = this.getCurrentAmount() - product.value;
+      const change = this.calculateChange(changeAmount);
+      this.addChangeToCoinReturn(change);
+      this.setCurrentAmount(0);
+      this.clearCurrentCoins();
+      this.setCurrentDisplay("THANK_YOU");
     } else if (product) {
       this.setCurrentDisplay("THANK_YOU");
     }
@@ -106,6 +115,7 @@ class VendingMachine {
       this.addToCoinReturn(coin);
     } else {
       this.setCurrentAmount(this.getCurrentAmount() + value);
+      this.addToCurrentCoins(coin);
       this.setCurrentDisplay("CURRENT_AMOUNT");
     }
   }
@@ -131,12 +141,55 @@ class VendingMachine {
     }
   }
 
+  calculateChange(amount: number) {
+    let change: Coin[] = [];
+    while (amount > 0) {
+      if (
+        amount >= this.computeCoinValue(this.quarter) &&
+        this.currentCoins.some((coin) => coin.equals(this.quarter))
+      ) {
+        change.push(this.quarter);
+        amount = amount - this.computeCoinValue(this.quarter);
+        continue;
+      } else if (
+        amount >= this.computeCoinValue(this.dime) &&
+        this.currentCoins.some((coin) => coin.equals(this.dime))
+      ) {
+        change.push(this.dime);
+        amount = amount - this.computeCoinValue(this.dime);
+        continue;
+      } else if (
+        amount >= this.computeCoinValue(this.nickel) &&
+        this.currentCoins.some((coin) => coin.equals(this.nickel))
+      ) {
+        change.push(this.nickel);
+        amount = amount - this.computeCoinValue(this.nickel);
+        continue;
+      } else {
+        break;
+      }
+    }
+    return change;
+  }
+
   addToCoinReturn(coin: Coin) {
     this.coinReturn.push(coin);
   }
 
+  addChangeToCoinReturn(change: Coin[]) {
+    this.coinReturn.push(...change);
+  }
+
   getCoinReturn(): Coin[] {
     return this.coinReturn;
+  }
+
+  addToCurrentCoins(coin: Coin) {
+    this.currentCoins.push(coin);
+  }
+
+  clearCurrentCoins() {
+    this.currentCoins = [];
   }
 }
 
