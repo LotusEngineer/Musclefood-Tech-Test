@@ -150,7 +150,7 @@ describe("Vending Machine", () => {
 
   describe("Make Change", () => {
     describe("When a customer attempts to purchase an item cheaper than the current amount they have inserted and change is available", () => {
-      it("should return remaining coins to the coin return", () => {
+      it("should return 2 quarters when paying for chips with 4 quarters", () => {
         subject.insertCoin(quarter);
         subject.insertCoin(quarter);
         subject.insertCoin(quarter);
@@ -159,7 +159,7 @@ describe("Vending Machine", () => {
         expect(subject.getCoinReturn()).toEqual([quarter, quarter]);
       });
 
-      it("should return change to the coin return", () => {
+      it("should return 5 dimes when paying for chips with 10 dimes", () => {
         subject.insertCoin(dime);
         subject.insertCoin(dime);
         subject.insertCoin(dime);
@@ -173,6 +173,17 @@ describe("Vending Machine", () => {
         subject.insertCoin(dime);
         subject.selectProduct("chips");
         expect(subject.getCoinReturn()).toEqual([dime, dime, dime, dime, dime]);
+      });
+    });
+  });
+
+  describe("Return Coins", () => {
+    describe("When the return coin button is pressed", () => {
+      it("should return any coins in the user inserted into the machine", () => {
+        subject.insertCoin(quarter);
+        subject.insertCoin(dime);
+        subject.returnsCoins();
+        expect(subject.getCoinReturn()).toEqual([quarter, dime]);
       });
     });
   });
