@@ -1,4 +1,4 @@
-import VendingMachine, { Coin } from "./index";
+import VendingMachine, { Coin, Product } from "./index";
 describe("Vending Machine", () => {
   let subject: VendingMachine;
   //Weight (g), diameter(mm) & thickness(mm), referenced from US mint
@@ -118,6 +118,18 @@ describe("Vending Machine", () => {
         subject.selectProduct("chips");
         subject.viewDisplay();
         expect(subject.viewDisplay()).toBe("INSERT COIN");
+      });
+    });
+
+    describe("When a customer purchases a product", () => {
+      it("should be placed in the dispenser", () => {
+        subject.insertCoin(quarter);
+        subject.insertCoin(quarter);
+        subject.insertCoin(dime);
+        subject.insertCoin(nickel);
+        subject.selectProduct("candy");
+        const candy: Product = new Product("candy", 0.65, 4);
+        expect(subject.getDispenser()).toEqual([candy]);
       });
     });
   });
