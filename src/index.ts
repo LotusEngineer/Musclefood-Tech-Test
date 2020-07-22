@@ -28,10 +28,16 @@ export class Coin {
 class Product {
   name: string;
   value: number;
+  quantity: number;
 
-  constructor(name: string, value: number) {
+  constructor(name: string, value: number, quantity: number) {
     this.name = name;
     this.value = value;
+    this.quantity = quantity;
+  }
+
+  setQuantity(newQuantity: number) {
+    this.quantity = newQuantity;
   }
 }
 
@@ -50,9 +56,9 @@ class VendingMachine {
     this.currentDisplay = "INSERT_COIN";
     this.selectedProductValue = 0;
     this.inventory = new Map();
-    this.inventory.set("candy", new Product("candy", 0.65));
-    this.inventory.set("cola", new Product("cola", 1.0));
-    this.inventory.set("chips", new Product("chips", 0.5));
+    this.inventory.set("candy", new Product("candy", 0.65, 5));
+    this.inventory.set("cola", new Product("cola", 1.0, 3));
+    this.inventory.set("chips", new Product("chips", 0.5, 1));
   }
   nickel: Coin = new Coin(5, 21.21, 1.95);
   dime: Coin = new Coin(2.268, 17.91, 1.35);
@@ -61,17 +67,23 @@ class VendingMachine {
   selectProduct(selection: string) {
     const product = this.inventory.get(selection);
     const amount = this.getCurrentAmount();
-    if (product && product.value > amount) {
+    if (product && product.quantity === 0) {
+      this.setCurrentDisplay("SOLD_OUT");
+    } else if (product && product.value > amount) {
       this.setSelectedProductValue(product);
       this.setCurrentDisplay("PRICE_CHECK");
     } else if (product && this.getCurrentAmount() > product.value) {
       const changeAmount = this.getCurrentAmount() - product.value;
       const change = this.calculateChange(changeAmount);
+      product.setQuantity(product.quantity - 1);
       this.addChangeToCoinReturn(change);
       this.setCurrentAmount(0);
       this.clearCurrentCoins();
       this.setCurrentDisplay("THANK_YOU");
     } else if (product) {
+      product.setQuantity(product.quantity - 1);
+      this.setCurrentAmount(0);
+      this.clearCurrentCoins();
       this.setCurrentDisplay("THANK_YOU");
     }
   }
@@ -91,6 +103,8 @@ class VendingMachine {
         return "THANK YOU";
       case "INSERT_COIN":
         return "INSERT COIN";
+      case "SOLD_OUT":
+        return "SOLD OUT";
       case "CURRENT_AMOUNT":
         return this.getCurrentAmount().toFixed(2);
       case "PRICE_CHECK":
