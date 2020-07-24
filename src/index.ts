@@ -65,6 +65,7 @@ class VendingMachine {
   nickel: Coin = new Coin(5, 21.21, 1.95);
   dime: Coin = new Coin(2.268, 17.91, 1.35);
   quarter: Coin = new Coin(5.67, 24.26, 1.75);
+  dollar: Coin = new Coin(8.1, 26.5, 2);
 
   selectProduct(selection: string) {
     const product = this.inventory.get(selection);
@@ -161,6 +162,8 @@ class VendingMachine {
         return 0.1;
       case coin.equals(this.quarter):
         return 0.25;
+      case coin.equals(this.dollar):
+        return 1.0;
       default:
         return 0;
     }
